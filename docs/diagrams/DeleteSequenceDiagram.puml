@@ -4,8 +4,8 @@
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
-participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
+participant ":DeleteByIndexCommandParser" as DeleteByIndexCommandParser LOGIC_COLOR
+participant "d:DeleteByIndexCommand" as DeleteByIndexCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -19,50 +19,50 @@ activate LogicManager
 LogicManager -> AddressBookParser : parseCommand("delete 1")
 activate AddressBookParser
 
-create DeleteCommandParser
-AddressBookParser -> DeleteCommandParser
-activate DeleteCommandParser
+create DeleteByIndexCommandParser
+AddressBookParser -> DeleteByIndexCommandParser
+activate DeleteByIndexCommandParser
 
-DeleteCommandParser --> AddressBookParser
-deactivate DeleteCommandParser
+DeleteByIndexCommandParser --> AddressBookParser
+deactivate DeleteByIndexCommandParser
 
-AddressBookParser -> DeleteCommandParser : parse("1")
-activate DeleteCommandParser
+AddressBookParser -> DeleteByIndexCommandParser : parse("1")
+activate DeleteByIndexCommandParser
 
-create DeleteCommand
-DeleteCommandParser -> DeleteCommand
-activate DeleteCommand
+create DeleteByIndexCommand
+DeleteByIndexCommandParser -> DeleteByIndexCommand
+activate DeleteByIndexCommand
 
-DeleteCommand --> DeleteCommandParser : d
-deactivate DeleteCommand
+DeleteByIndexCommand --> DeleteByIndexCommandParser : d
+deactivate DeleteByIndexCommand
 
-DeleteCommandParser --> AddressBookParser : d
-deactivate DeleteCommandParser
+DeleteByIndexCommandParser --> AddressBookParser : d
+deactivate DeleteByIndexCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteCommandParser -[hidden]-> AddressBookParser
-destroy DeleteCommandParser
+DeleteByIndexCommandParser -[hidden]-> AddressBookParser
+destroy DeleteByIndexCommandParser
 
 AddressBookParser --> LogicManager : d
 deactivate AddressBookParser
 
-LogicManager -> DeleteCommand : execute()
-activate DeleteCommand
+LogicManager -> DeleteByIndexCommand : execute()
+activate DeleteByIndexCommand
 
-DeleteCommand -> Model : deletePerson(1)
+DeleteByIndexCommand -> Model : deletePerson(1)
 activate Model
 
-Model --> DeleteCommand
+Model --> DeleteByIndexCommand
 deactivate Model
 
 create CommandResult
-DeleteCommand -> CommandResult
+DeleteByIndexCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> DeleteCommand
+CommandResult --> DeleteByIndexCommand
 deactivate CommandResult
 
-DeleteCommand --> LogicManager : result
-deactivate DeleteCommand
+DeleteByIndexCommand --> LogicManager : result
+deactivate DeleteByIndexCommand
 
 [<--LogicManager
 deactivate LogicManager

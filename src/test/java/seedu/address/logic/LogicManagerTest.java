@@ -25,7 +25,7 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteByIndexCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -107,10 +107,10 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_deleteCommand_throwsParseException() {
-        String deleteCommand = DeleteCommand.COMMAND_WORD;
-        String deleteMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
-        assertParseException(deleteCommand, deleteMessage);
+    public void execute_deleteByIndexCommand_throwsParseException() {
+        String deleteByIndexCommand = DeleteByIndexCommand.COMMAND_WORD;
+        String deleteMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteByIndexCommand.MESSAGE_USAGE);
+        assertParseException(deleteByIndexCommand, deleteMessage);
     }
 
     @Test
@@ -147,8 +147,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        String deleteByIndexCommand = "delete 9";
+        assertCommandException(deleteByIndexCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
